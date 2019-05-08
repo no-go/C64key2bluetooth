@@ -113,6 +113,10 @@ The RUN/STOP key it ESC.
 
 With LEFT_SHIFT and DEL you get the BACKSPACE.
 
+### save
+
+LEFT_SHIFT and commodore key.
+
 ### Undo Key
 
 Pressing the RIGHT_SHIFT makes UNDO. It is similar to CTRL+Z, but I did not

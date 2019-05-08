@@ -4,12 +4,12 @@
 #define NUM_COLS 8
 
 #define KEY_BACKSPACE     255 // DEL
-#define KEY_TAB           254 // shift & SPACE
+#define KEY_TAB           254 // shift SPACE
 #define KEY_ESC           253 // RUN STOP
 #define KEY_SHIFT         251 // LEFT
 #define KEY_SPACE         234 //
 
-#define KEY_DELETE        250 // shift & del = INST
+#define KEY_DELETE        250 // shift del = INST
 #define KEY_HOME          249 // home (pos1)
 #define KEY_RETURN        247 //
 
@@ -33,10 +33,11 @@
 
 #define KEY_COMMODORE     252 // mouse left click ------------------
 #define KEY_CTRL          248 // mouse right click -----------------
-#define KEY_SHIFT_RIGHT   233 // used as CTRL & Z (undo)
+#define KEY_SHIFT_RIGHT   233 // used as CTRL Z (undo)
 
-#define KEY_BRIGHTUP      229 // shift & arrow up key
-#define KEY_BRIGHTDOWN    228 // shift & <- key
+#define KEY_BRIGHTUP      229 // shift arrow up key
+#define KEY_BRIGHTDOWN    228 // shift  <- key
+#define KEY_SAVE          227 // shift commodore
 
 #define KEY_SHIFT_LOCK    A6 // I map auosAUO on Linux to äüößÄÜÖ
 #define KEY_RESTORE       A7 // for \ and |
@@ -53,7 +54,7 @@ byte keyMap[NUM_ROWS][NUM_COLS] = {
 };
 
 byte keyMapShifted[NUM_ROWS][NUM_COLS] = {
-{'!'          ,KEY_BRIGHTDOWN,KEY_CTRL      ,KEY_ESC     ,KEY_TAB         ,KEY_COMMODORE,'Q'         ,34},
+{'!'          ,KEY_BRIGHTDOWN,KEY_CTRL      ,KEY_ESC     ,KEY_TAB         ,KEY_SAVE     ,'Q'         ,34},
 {'#'          ,'W'           ,'A'           ,KEY_SHIFT   ,'Z'             ,'S'          ,'E'         ,'$'},
 {'%'          ,'R'           ,'D'           ,'X'         ,'C'             ,'F'          ,'T'         ,'&'},
 {'\''         ,'Y'           ,'G'           ,'V'         ,'B'             ,'H'          ,'U'         ,'('},
@@ -62,7 +63,7 @@ byte keyMapShifted[NUM_ROWS][NUM_COLS] = {
 {'~'          ,'}'           ,']'           ,'?'         ,KEY_SHIFT_RIGHT,'_'          ,KEY_BRIGHTUP,KEY_END},
 {KEY_BACKSPACE,KEY_RETURN    ,KEY_LEFT_ARROW,KEY_UP_ARROW,KEY_F2         ,KEY_F4       ,KEY_F6      ,KEY_F8}
 };
-
+  
 int debounceCount[NUM_ROWS][NUM_COLS];
 
 // define the row and column pins
@@ -75,7 +76,7 @@ byte colPins[NUM_COLS] = { 2,  3,  4,  5,  6,  7,  8,  9};
 
 // how many times does a key need to register as pressed?
 #define DEBOUNCE_VALUE 80
-#define REPEAT_DELAY 300
+#define REPEAT_DELAY 160
 
 
 
@@ -228,8 +229,9 @@ void loop() {
 // Send the keypress
 void pressKey(byte r, byte c, bool shifted) {
   byte key = shifted ? keyMapShifted[r][c] : keyMap[r][c];
-  
-  if (key < 228)  {
+
+    
+  if (key < 227)  {
     if ((char)key=='?') {
       mSerial.println(F("AT+BleKeyboardCode=02-00-38-00-00"));
       mSerial.println(F("AT+BleKeyboardCode=00-00"));
@@ -321,11 +323,11 @@ void pressKey(byte r, byte c, bool shifted) {
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
         break;
       case KEY_F1:
-        mSerial.println(F("AT+BleKeyboardCode=00-00-7C-00-00"));
+        mSerial.println(F("AT+BleKeyboardCode=01-00-06-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
         break;
       case KEY_F3:
-        mSerial.println(F("AT+BleKeyboardCode=00-00-7D-00-00"));
+        mSerial.println(F("AT+BleKeyboardCode=01-00-19-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
         break;
 
@@ -337,10 +339,14 @@ void pressKey(byte r, byte c, bool shifted) {
         break;
 
       case KEY_SHIFT_RIGHT:
-        mSerial.println(F("AT+BleKeyboardCode=04-00-7A-00-00")); // undo
+        mSerial.println(F("AT+BleKeyboardCode=01-00-1D-00-00")); // undo
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
         break;
 
+      case KEY_SAVE:
+        mSerial.println(F("AT+BleKeyboardCode=01-00-16-00-00"));
+        mSerial.println(F("AT+BleKeyboardCode=00-00"));
+        break;
 
       case KEY_COMMODORE:
         mSerial.println(F("AT+BleHidMouseButton=L,click"));
