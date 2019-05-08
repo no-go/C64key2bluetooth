@@ -33,7 +33,7 @@
 
 #define KEY_COMMODORE     252 // mouse left click ------------------
 #define KEY_CTRL          248 // mouse right click -----------------
-#define KEY_SHIFT_RIGHT   233 // used as ALT+TAB combination
+#define KEY_SHIFT_RIGHT   233 // used as CTRL & Z (undo)
 
 #define KEY_BRIGHTUP      229 // shift & arrow up key
 #define KEY_BRIGHTDOWN    228 // shift & <- key
@@ -321,11 +321,11 @@ void pressKey(byte r, byte c, bool shifted) {
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
         break;
       case KEY_F1:
-        mSerial.println(F("AT+BleKeyboardCode=01-00-06-00-00"));
+        mSerial.println(F("AT+BleKeyboardCode=00-00-7C-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
         break;
       case KEY_F3:
-        mSerial.println(F("AT+BleKeyboardCode=01-00-19-00-00"));
+        mSerial.println(F("AT+BleKeyboardCode=00-00-7D-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
         break;
 
@@ -337,7 +337,7 @@ void pressKey(byte r, byte c, bool shifted) {
         break;
 
       case KEY_SHIFT_RIGHT:
-        mSerial.println(F("AT+BleKeyboardCode=04-00-2B-00-00")); // alt tab
+        mSerial.println(F("AT+BleKeyboardCode=04-00-7A-00-00")); // undo
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
         break;
 
