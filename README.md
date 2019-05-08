@@ -1,4 +1,4 @@
-# C64key2bluetooth
+# C64 keys to modern bluetooth
 
 Using a Arduino Pro Mini and UART Bluefriend with HID support to make an old C64 to a ble 4.0 keyboard.
 
