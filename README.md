@@ -8,15 +8,23 @@ for my modern notebook and desktop system.
 
 Actually it is an improvement - but still usable.
 
+*This project and keyboard layout has no focus on vice or mice c64 emulator!*
+
 # to do
 
-circuit and wireing
+circuit
 
 ## parts
 
 - [C64 keyboard only and not mainboard](https://en.wikipedia.org/wiki/Commodore_64)
 - [Arduino Pro Mini](https://store.arduino.cc/arduino-pro-mini)
 - [Bluefruit UART friend](https://learn.adafruit.com/introducing-the-adafruit-bluefruit-le-uart-friend)
+
+# Bluefriend wireing
+
+CTS to GND, GND to GND, arduino TX/RX to bluefruit RX/TX, and 3.7-5V power to VIN. I use the UART
+and the AT commands to send HID keyboard keys via the Bluefriend Module. It is quite simple and
+without any additional libary.
 
 # Explain, explain
 
