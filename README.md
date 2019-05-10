@@ -30,10 +30,33 @@ without any additional libary.
 
 Again: it is a proof of concept and I did not spend to much brain power in it.
 For example: `keypressed and holding that key` and `ctrl, alt, alt+gr, F1..F12`
-are not implemented. I combination of that keys and `shift` did not work..
+are not complete implemented. A combination of that keys and `shift` did not work..
 if I (or you) spend more time: there are easy solutions for it.
 
+
+
+
+
 ## keymap
+
+
+
+
+
+### todo: F3..F8, shift runstop, shift commodore, right shift
+
+I did not realy need the F keys. maybe usage as mouse.
+
+### todo: ctrl
+
+the ctrl will be implemented in commodore key with:
+
+  y,z,s,c,v,a,plus,minus
+
+
+
+
+
 
 ### Caps/Shift Lock switch
 
@@ -62,26 +85,9 @@ I add a 10k resistor to A7 and VCC to set it HIGH (analoge value>1000 is not pre
 
 I did not realy need a RESTORE key, thus it is the \ key and with LEFT_SHIFT the |
 
-### F1..F8
+### F1 and F2
 
-I did not realy need the F keys. I give them new functions:
-
-- F1: copy
-- F3: paste
-- F5: mouse 20px up
-- F7: mouse 20px down
-
-with LEFT_SHIFT pressed:
-
-- F2: mark text right (shift left)
-- F4: mark text left (shift left)
-- F6: mouse 20px right
-- F8: mouse 20px left
-
-### single mouse click
-
-- CTRL is a single mouse right click
-- Commodore key is a single mouse left click
+... mark to the left and to the right.
 
 ### Cursor Keys
 
@@ -113,20 +119,11 @@ The RUN/STOP key it ESC.
 
 With LEFT_SHIFT and DEL you get the BACKSPACE.
 
-### save
-
-LEFT_SHIFT and commodore key.
-
-### Undo Key
-
-Pressing the RIGHT_SHIFT makes UNDO. It is similar to CTRL+Z, but I did not
-code that combination.
-
 ### Missing keys
 
 - the `^`: LEFT_SHIFT and `0`
 - the ``` and `~`: `£` key (and LEFT_SHIFT)
-- the TAB: LEFT_SHIFT and SPACE
+- the TAB: use CTRL key
 - the `_` underscore: LEFT_SHIFT and `=`
 - the `{` and `}`: LEFT_SHIFT and `@` or `*`
 
