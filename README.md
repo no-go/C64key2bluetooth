@@ -29,7 +29,7 @@ without any additional libary.
 # Explain, explain
 
 Again: it is a proof of concept and I did not spend to much brain power in it.
-For example: `keypressed and holding that key` and `ctrl, alt, alt+gr, F1..F12`
+For example: `keypressed and holding that key` and `alt, alt+gr, F1..F12`
 are not complete implemented. A combination of that keys and `shift` did not work..
 if I (or you) spend more time: there are easy solutions for it.
 
@@ -40,22 +40,15 @@ if I (or you) spend more time: there are easy solutions for it.
 ## keymap
 
 
-
-
-
-### todo: F3..F8, shift runstop, shift commodore, right shift
+### F3..F8
 
 I did not realy need the F keys. maybe usage as mouse.
 
-### todo: ctrl
+### ctrl
 
 the ctrl will be implemented in commodore key with:
 
-  y,z,s,c,v,a,plus,minus
-
-
-
-
+  g,r,f,l,y,z,s,c,v,a,x,0,plus,minus
 
 
 ### Caps/Shift Lock switch
@@ -111,9 +104,9 @@ LEFT_SHIFT and + or - are mapped to volume keys.
 Pressing CLR/HOME sets the cursor to the first position of the line.
 In combination with LEFT_SHIFT the cursor is set to END.
 
-### ESC
+### ESC and F11
 
-The RUN/STOP key it ESC.
+The RUN/STOP key is ESC (with LEFT_SHIFT: F11).
 
 ### DEL and BACKSPACE
 
