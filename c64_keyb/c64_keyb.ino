@@ -4,8 +4,8 @@
 #define NUM_COLS 8
 
 #define KEY_BACKSPACE     255 // DEL
-#define KEY_TAB           254 // shift SPACE
-#define KEY_ESC           253 // RUN STOP
+#define KEY_SHIFT_CTRL    254 // shift tab
+#define KEY_STOP          253 // ESC
 #define KEY_SHIFT         251 // LEFT
 #define KEY_SPACE         234 //
 
@@ -18,50 +18,52 @@
 #define KEY_UP_ARROW      244 // arrow up key or shift CRSR down
 #define KEY_RIGHT_ARROW   243 //
 
-#define KEY_F1            242 // copy
-#define KEY_F2            241 // mark left
-#define KEY_F3            240 // paste
-#define KEY_F4            239 // mark right
+#define KEY_F1            242 // mark left
+#define KEY_F2            241 // mark right (shift)
+#define KEY_F3            240 // mouse left click ---------
+#define KEY_F4            239 // mouse right click -------- (shift) 
 #define KEY_F5            238 // mouse up -----------------
 #define KEY_F6            237 // mouse left --------------- (shift)
 #define KEY_F7            236 // mouse down ---------------
 #define KEY_F8            235 // mouse right -------------- (shift)
 
-#define VOLUME_UP         232 // shift +
-#define VOLUME_DOWN       231 // shift -
+#define SHIFT_PLUS        232 // VOLUME_UP
+#define SHIFT_MINUS       231 // VOLUME_down
 #define KEY_END           230 // CLR = shift home
 
-#define KEY_COMMODORE     252 // mouse left click ------------------
-#define KEY_CTRL          248 // mouse right click -----------------
-#define KEY_SHIFT_RIGHT   233 // used as CTRL Z (undo)
+#define KEY_COMMODORE     252 
+#define KEY_CTRL          248 // TAB
+#define KEY_SHIFT_RIGHT   233
 
-#define KEY_BRIGHTUP      229 // shift arrow up key
-#define KEY_BRIGHTDOWN    228 // shift  <- key
-#define KEY_SAVE          227 // shift commodore
+#define SHIFT_ARROWUP     229 // bright +
+#define SHIFT_ARROWLEFT   228 // bright -
+#define SHIFT_COMMODORE   227
+// shift + run stop 
+#define KEY_RUN           226 // F11
 
 #define KEY_SHIFT_LOCK    A6 // I map auosAUO on Linux to äüößÄÜÖ
 #define KEY_RESTORE       A7 // for \ and |
 
 byte keyMap[NUM_ROWS][NUM_COLS] = {
-{'1',KEY_LEFT_ARROW,KEY_CTRL,KEY_ESC,KEY_SPACE,KEY_COMMODORE,'q','2'},
-{'3','w','a',KEY_SHIFT,'z','s','e','4'},
-{'5','r','d','x','c','f','t','6'},
-{'7','y','g','v','b','h','u','8'},
-{'9','i','j','n','m','k','o','0'},
-{'+','p','l',',','.',':','@','-'},
-{'`'       ,'*'       ,';'            ,'/'           ,KEY_SHIFT_RIGHT,'='   ,KEY_UP_ARROW,KEY_HOME},
-{KEY_DELETE,KEY_RETURN,KEY_RIGHT_ARROW,KEY_DOWN_ARROW,KEY_F1         ,KEY_F3,KEY_F5      ,KEY_F7}
+{'1',       KEY_LEFT_ARROW, KEY_CTRL,        KEY_STOP,      KEY_SPACE,       KEY_COMMODORE, 'q',          '2'},
+{'3',       'w',            'a',             KEY_SHIFT,     'z',             's',           'e',          '4'},
+{'5',       'r',            'd',             'x',           'c',             'f',           't',          '6'},
+{'7',       'y',            'g',             'v',           'b',             'h',           'u',          '8'},
+{'9',       'i',            'j',             'n',           'm',             'k',           'o',          '0'},
+{'+',       'p',            'l',             ',',           '.',             ':',           '@',          '-'},
+{'`',       '*',            ';',             '/',            KEY_SHIFT_RIGHT, '=',          KEY_UP_ARROW, KEY_HOME},
+{KEY_DELETE, KEY_RETURN,    KEY_RIGHT_ARROW, KEY_DOWN_ARROW, KEY_F1,          KEY_F3,       KEY_F5      , KEY_F7}
 };
 
 byte keyMapShifted[NUM_ROWS][NUM_COLS] = {
-{'!'          ,KEY_BRIGHTDOWN,KEY_CTRL      ,KEY_ESC     ,KEY_TAB         ,KEY_SAVE     ,'Q'         ,34},
-{'#'          ,'W'           ,'A'           ,KEY_SHIFT   ,'Z'             ,'S'          ,'E'         ,'$'},
-{'%'          ,'R'           ,'D'           ,'X'         ,'C'             ,'F'          ,'T'         ,'&'},
-{'\''         ,'Y'           ,'G'           ,'V'         ,'B'             ,'H'          ,'U'         ,'('},
-{')'          ,'I'           ,'J'           ,'N'         ,'M'             ,'K'          ,'O'         ,'^'},
-{VOLUME_UP    ,'P'           ,'L'           ,'<'         ,'>'             ,'['          ,'{'         ,VOLUME_DOWN},
-{'~'          ,'}'           ,']'           ,'?'         ,KEY_SHIFT_RIGHT,'_'          ,KEY_BRIGHTUP,KEY_END},
-{KEY_BACKSPACE,KEY_RETURN    ,KEY_LEFT_ARROW,KEY_UP_ARROW,KEY_F2         ,KEY_F4       ,KEY_F6      ,KEY_F8}
+{'!'           ,SHIFT_ARROWLEFT ,KEY_SHIFT_CTRL ,KEY_RUN      ,KEY_SPACE       ,SHIFT_COMMODORE ,'Q'           ,34},
+{'#'           ,'W'             ,'A'            ,KEY_SHIFT    ,'Z'             ,'S'             ,'E'           ,'$'},
+{'%'           ,'R'             ,'D'            ,'X'          ,'C'             ,'F'             ,'T'           ,'&'},
+{'\''          ,'Y'             ,'G'            ,'V'          ,'B'             ,'H'             ,'U'           ,'('},
+{')'           ,'I'             ,'J'            ,'N'          ,'M'             ,'K'             ,'O'           ,'^'},
+{SHIFT_PLUS    ,'P'             ,'L'            ,'<'          ,'>'             ,'['             ,'{'           ,SHIFT_MINUS},
+{'~'           ,'}'             ,']'            ,'?'          ,KEY_SHIFT_RIGHT ,'_'             ,SHIFT_ARROWUP ,KEY_END},
+{KEY_BACKSPACE ,KEY_RETURN      ,KEY_LEFT_ARROW ,KEY_UP_ARROW ,KEY_F2          ,KEY_F4          ,KEY_F6        ,KEY_F8}
 };
   
 int debounceCount[NUM_ROWS][NUM_COLS];
@@ -73,10 +75,17 @@ byte colPins[NUM_COLS] = { 2,  3,  4,  5,  6,  7,  8,  9};
 // where is the shift key
 #define SHIFT_COL 3
 #define SHIFT_ROW 1
+#define RSHIFT_COL 4
+#define RSHIFT_ROW 6
+
+// where is the commodore key
+#define COMMO_COL 5
+#define COMMO_ROW 0
+bool commo = false;
 
 // how many times does a key need to register as pressed?
 #define DEBOUNCE_VALUE 80
-#define REPEAT_DELAY 160
+#define REPEAT_DELAY 260
 
 
 
@@ -143,7 +152,7 @@ void setup() {
 
   // set all pins as inputs
   for (byte r = 0; r < NUM_ROWS; r++) {
-    pinMode(rowPins[r], INPUT);
+    pinMode(rowPins[r], INPUT_PULLUP);
   }
    
   if (1==1) {
@@ -163,15 +172,33 @@ void setup() {
 }
 
 void loop() {
-  // check for shift
-  bool shifted = false;
   bool keyPressed = false;
-  pinMode(rowPins[SHIFT_ROW], OUTPUT);
 
+  // check for shift ------------------------------------
+  bool shifted = false;
+  // initial check the shift key
+  pinMode(rowPins[SHIFT_ROW], OUTPUT); // default is high?!
   if (digitalRead(colPins[SHIFT_COL]) == LOW) shifted = true;
-  pinMode(rowPins[SHIFT_ROW], INPUT);
+  // set it back
+  pinMode(rowPins[SHIFT_ROW], INPUT_PULLUP);
+
+  // some for right shift key
+  pinMode(rowPins[RSHIFT_ROW], OUTPUT); // default is high?!
+  if (digitalRead(colPins[RSHIFT_COL]) == LOW) shifted = true;
+  // set it back
+  pinMode(rowPins[RSHIFT_ROW], INPUT_PULLUP);
+  
+  // check for commodore ----------------------------------
+  commo = false;
+  // initial check the commo key
+  pinMode(rowPins[COMMO_ROW], OUTPUT); // default is hight?!
+  if (digitalRead(colPins[COMMO_COL]) == LOW) commo = true;
+  // set it back
+  pinMode(rowPins[COMMO_ROW], INPUT_PULLUP);
+  // -----------------------------------------------------
+  
   int dummy = analogRead(KEY_SHIFT_LOCK);
-            
+  
   for (byte r = 0; r < NUM_ROWS; r++) {
     // turn the row on
     pinMode(rowPins[r], OUTPUT);
@@ -223,15 +250,130 @@ void loop() {
     }
   }
 
-  digitalWrite(rowPins[SHIFT_ROW], LOW);
+  digitalWrite(rowPins[SHIFT_ROW],  LOW);
+  digitalWrite(rowPins[RSHIFT_ROW], LOW);
+  digitalWrite(rowPins[COMMO_ROW],  LOW);
 }
 
 // Send the keypress
 void pressKey(byte r, byte c, bool shifted) {
   byte key = shifted ? keyMapShifted[r][c] : keyMap[r][c];
 
-    
-  if (key < 227)  {
+  // commodore key as ctrl (shift+ctrl)
+  if (commo) {
+    switch ((char)key) {
+      case '0':
+        mSerial.println(F("AT+BleKeyboardCode=01-00-27-00-00"));
+        mSerial.println(F("AT+BleKeyboardCode=00-00"));
+        break;
+      case 'a':
+        mSerial.println(F("AT+BleKeyboardCode=01-00-04-00-00"));
+        mSerial.println(F("AT+BleKeyboardCode=00-00"));
+        break;
+      case 'c':
+        mSerial.println(F("AT+BleKeyboardCode=01-00-06-00-00"));
+        mSerial.println(F("AT+BleKeyboardCode=00-00"));
+        break;
+      case 'f':
+        mSerial.println(F("AT+BleKeyboardCode=01-00-09-00-00"));
+        mSerial.println(F("AT+BleKeyboardCode=00-00"));
+        break;
+      case 'g':
+        mSerial.println(F("AT+BleKeyboardCode=01-00-0A-00-00"));
+        mSerial.println(F("AT+BleKeyboardCode=00-00"));
+        break;
+      case 'l':
+        mSerial.println(F("AT+BleKeyboardCode=01-00-0F-00-00"));
+        mSerial.println(F("AT+BleKeyboardCode=00-00"));
+        break;
+      case 'r':
+        mSerial.println(F("AT+BleKeyboardCode=01-00-15-00-00"));
+        mSerial.println(F("AT+BleKeyboardCode=00-00"));
+        break;
+      case 's':
+        mSerial.println(F("AT+BleKeyboardCode=01-00-16-00-00"));
+        mSerial.println(F("AT+BleKeyboardCode=00-00"));
+        break;
+      case 'v':
+        mSerial.println(F("AT+BleKeyboardCode=01-00-19-00-00"));
+        mSerial.println(F("AT+BleKeyboardCode=00-00"));
+        break;
+      case 'y':
+        mSerial.println(F("AT+BleKeyboardCode=01-00-1C-00-00"));
+        mSerial.println(F("AT+BleKeyboardCode=00-00"));
+        break;
+      case 'x':
+        mSerial.println(F("AT+BleKeyboardCode=01-00-1B-00-00"));
+        mSerial.println(F("AT+BleKeyboardCode=00-00"));
+        break;
+      case 'z':
+        mSerial.println(F("AT+BleKeyboardCode=01-00-1D-00-00"));
+        mSerial.println(F("AT+BleKeyboardCode=00-00"));
+        break;
+
+      case 'A':
+        mSerial.println(F("AT+BleKeyboardCode=03-00-04-00-00"));
+        mSerial.println(F("AT+BleKeyboardCode=00-00"));
+        break;
+      case 'C':
+        mSerial.println(F("AT+BleKeyboardCode=03-00-06-00-00"));
+        mSerial.println(F("AT+BleKeyboardCode=00-00"));
+        break;
+      case 'F':
+        mSerial.println(F("AT+BleKeyboardCode=03-00-09-00-00"));
+        mSerial.println(F("AT+BleKeyboardCode=00-00"));
+        break;
+      case 'G':
+        mSerial.println(F("AT+BleKeyboardCode=03-00-0A-00-00"));
+        mSerial.println(F("AT+BleKeyboardCode=00-00"));
+        break;
+      case 'L':
+        mSerial.println(F("AT+BleKeyboardCode=03-00-0F-00-00"));
+        mSerial.println(F("AT+BleKeyboardCode=00-00"));
+        break;
+      case 'R':
+        mSerial.println(F("AT+BleKeyboardCode=03-00-15-00-00"));
+        mSerial.println(F("AT+BleKeyboardCode=00-00"));
+        break;
+      case 'S':
+        mSerial.println(F("AT+BleKeyboardCode=03-00-16-00-00"));
+        mSerial.println(F("AT+BleKeyboardCode=00-00"));
+        break;
+      case 'V':
+        mSerial.println(F("AT+BleKeyboardCode=03-00-19-00-00"));
+        mSerial.println(F("AT+BleKeyboardCode=00-00"));
+        break;
+      case 'Y':
+        mSerial.println(F("AT+BleKeyboardCode=03-00-1C-00-00"));
+        mSerial.println(F("AT+BleKeyboardCode=00-00"));
+        break;
+      case 'X':
+        mSerial.println(F("AT+BleKeyboardCode=03-00-1B-00-00"));
+        mSerial.println(F("AT+BleKeyboardCode=00-00"));
+        break;
+      case 'Z':
+        mSerial.println(F("AT+BleKeyboardCode=03-00-1D-00-00"));
+        mSerial.println(F("AT+BleKeyboardCode=00-00"));
+        break;
+      
+      
+      case '+':
+        mSerial.println(F("AT+BleKeyboardCode=01-00-2E-00-00"));
+        mSerial.println(F("AT+BleKeyboardCode=00-00"));
+        break;
+      case '-':
+        mSerial.println(F("AT+BleKeyboardCode=01-00-2D-00-00"));
+        mSerial.println(F("AT+BleKeyboardCode=00-00"));
+        break;
+      default:
+        ;
+    }
+    return;
+  }
+
+
+  
+  if (key < 226)  {
     if ((char)key=='?') {
       mSerial.println(F("AT+BleKeyboardCode=02-00-38-00-00"));
       mSerial.println(F("AT+BleKeyboardCode=00-00"));
@@ -276,22 +418,30 @@ void pressKey(byte r, byte c, bool shifted) {
         mSerial.println(F("AT+BleKeyboardCode=00-00-51-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
         break;
-        
+
+
       case KEY_RETURN:
         mSerial.println(F("AT+BleKeyboardCode=00-00-28-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
         break;
-      case KEY_ESC:
+      case KEY_STOP:
         mSerial.println(F("AT+BleKeyboardCode=00-00-29-00-00"));
+        mSerial.println(F("AT+BleKeyboardCode=00-00"));
+        break;
+      case KEY_RUN:
+        mSerial.println(F("AT+BleKeyboardCode=00-00-44-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
         break;
       case KEY_DELETE:
         mSerial.println(F("AT+BleKeyboardCode=00-00-2A-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
         break;
-
-      case KEY_TAB:
+      case KEY_CTRL:
         mSerial.println(F("AT+BleKeyboardCode=00-00-2B-00-00"));
+        mSerial.println(F("AT+BleKeyboardCode=00-00"));
+        break;
+      case KEY_SHIFT_CTRL:
+        mSerial.println(F("AT+BleKeyboardCode=02-00-2B-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
         break;
       case KEY_HOME:
@@ -307,51 +457,37 @@ void pressKey(byte r, byte c, bool shifted) {
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
         break;
 
-      case VOLUME_UP:
+      case SHIFT_PLUS:
         mSerial.println(F("AT+BleHidControlKey=VOLUME+"));
         break;
-      case VOLUME_DOWN:
+      case SHIFT_MINUS:
         mSerial.println(F("AT+BleHidControlKey=VOLUME-"));
         break;
 
-      case KEY_F2:
-        mSerial.println(F("AT+BleKeyboardCode=02-00-50-00-00"));
-        mSerial.println(F("AT+BleKeyboardCode=00-00"));
-        break;
-      case KEY_F4:
-        mSerial.println(F("AT+BleKeyboardCode=02-00-4F-00-00"));
-        mSerial.println(F("AT+BleKeyboardCode=00-00"));
-        break;
-      case KEY_F1:
-        mSerial.println(F("AT+BleKeyboardCode=01-00-06-00-00"));
-        mSerial.println(F("AT+BleKeyboardCode=00-00"));
-        break;
-      case KEY_F3:
-        mSerial.println(F("AT+BleKeyboardCode=01-00-19-00-00"));
-        mSerial.println(F("AT+BleKeyboardCode=00-00"));
-        break;
 
-      case KEY_BRIGHTDOWN:
+      case SHIFT_ARROWLEFT:
         mSerial.println(F("AT+BleHidControlKey=BRIGHTNESS-"));
         break;
-      case KEY_BRIGHTUP:
+      case SHIFT_ARROWUP:
         mSerial.println(F("AT+BleHidControlKey=BRIGHTNESS+"));
         break;
 
-      case KEY_SHIFT_RIGHT:
-        mSerial.println(F("AT+BleKeyboardCode=01-00-1D-00-00")); // undo
+
+      case KEY_F1:
+        mSerial.println(F("AT+BleKeyboardCode=02-00-50-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
         break;
 
-      case KEY_SAVE:
-        mSerial.println(F("AT+BleKeyboardCode=01-00-16-00-00"));
-        mSerial.println(F("AT+BleKeyboardCode=00-00"));
+      case KEY_F2:
+        mSerial.println(F("AT+BleKeyboardCode=02-00-4F-00-00"));
+        mSerial.println(F("AT+BleKeyboardCode=00-00"));  
         break;
 
-      case KEY_COMMODORE:
+
+      case KEY_F3:
         mSerial.println(F("AT+BleHidMouseButton=L,click"));
         break;
-      case KEY_CTRL:
+      case KEY_F4:
         mSerial.println(F("AT+BleHidMouseButton=R,click"));
         break;
       case KEY_F5:
