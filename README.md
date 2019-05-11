@@ -39,11 +39,6 @@ if I (or you) spend more time: there are easy solutions for it.
 
 ## keymap
 
-
-### F3..F8
-
-I did not realy need the F keys. maybe usage as mouse.
-
 ### ctrl
 
 the ctrl will be implemented in commodore key with:
@@ -78,17 +73,29 @@ I add a 10k resistor to A7 and VCC to set it HIGH (analoge value>1000 is not pre
 
 I did not realy need a RESTORE key, thus it is the \ key and with LEFT_SHIFT the |
 
-### F1 and F2
+### F1 and F3
 
 ... mark to the left and to the right.
 
-### Cursor Keys
+### F5 and F7
+
+... mark to up and to down.
+
+### F6 and F8
+
+... page up and page down.
+
+### Cursor Keys and Mouse
 
 It is different to the c64: with LEFT_SHIFT you get: cursor up / cursor left
 
 Without shift: cursor down and cursor right.
 
 Additionaly I add cursor left to the `<-` key and cursor up to the `up arrow` key.
+
+With Commodore Key pressed: Space is left-mouse-click and cursor keys are to move.
+
+Commodore+SHIFT is a right mouse click.
 
 ### Display brightness
 

@@ -19,25 +19,25 @@
 #define KEY_RIGHT_ARROW   243 //
 
 #define KEY_F1            242 // mark left
-#define KEY_F2            241 // mark right (shift)
-#define KEY_F3            240 // mouse left click ---------
-#define KEY_F4            239 // mouse right click -------- (shift) 
-#define KEY_F5            238 // mouse up -----------------
-#define KEY_F6            237 // mouse left --------------- (shift)
-#define KEY_F7            236 // mouse down ---------------
-#define KEY_F8            235 // mouse right -------------- (shift)
+#define KEY_F2            241 
+#define KEY_F3            240 // mark right
+#define KEY_F4            239 
+#define KEY_F5            238 // mark up
+#define KEY_F6            237 // -page up
+#define KEY_F7            236 // mark down
+#define KEY_F8            235 // -page down
 
 #define SHIFT_PLUS        232 // VOLUME_UP
 #define SHIFT_MINUS       231 // VOLUME_down
 #define KEY_END           230 // CLR = shift home
 
-#define KEY_COMMODORE     252 
+#define KEY_COMMODORE     252 // as ctrl and space and cursor keys as mouse
 #define KEY_CTRL          248 // TAB
-#define KEY_SHIFT_RIGHT   233
+#define KEY_SHIFT_RIGHT   233 // = SHIFT
 
 #define SHIFT_ARROWUP     229 // bright +
 #define SHIFT_ARROWLEFT   228 // bright -
-#define SHIFT_COMMODORE   227
+#define SHIFT_COMMODORE   227 // mouse click R
 // shift + run stop 
 #define KEY_RUN           226 // F11
 
@@ -261,6 +261,29 @@ void pressKey(byte r, byte c, bool shifted) {
 
   // commodore key as ctrl (shift+ctrl)
   if (commo) {
+    switch (key) {
+      case KEY_SPACE:
+        mSerial.println(F("AT+BleHidMouseButton=L,click"));
+        break;
+      case SHIFT_COMMODORE:
+        mSerial.println(F("AT+BleHidMouseButton=R,click"));
+        break;
+        
+      case KEY_UP_ARROW:
+        mSerial.println(F("AT+BleHidMouseMove=0,-20"));
+        break;
+      case KEY_DOWN_ARROW:
+        mSerial.println(F("AT+BleHidMouseMove=0,20"));
+        break;
+      case KEY_LEFT_ARROW:
+        mSerial.println(F("AT+BleHidMouseMove=-20,0"));
+        break;
+      case KEY_RIGHT_ARROW:
+        mSerial.println(F("AT+BleHidMouseMove=20,0"));
+        break;
+      default:
+        ;
+    }
     switch ((char)key) {
       case '0':
         mSerial.println(F("AT+BleKeyboardCode=01-00-27-00-00"));
@@ -355,8 +378,7 @@ void pressKey(byte r, byte c, bool shifted) {
         mSerial.println(F("AT+BleKeyboardCode=03-00-1D-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
         break;
-      
-      
+              
       case '+':
         mSerial.println(F("AT+BleKeyboardCode=01-00-2E-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
@@ -478,29 +500,28 @@ void pressKey(byte r, byte c, bool shifted) {
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
         break;
 
-      case KEY_F2:
+      case KEY_F3:
         mSerial.println(F("AT+BleKeyboardCode=02-00-4F-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));  
         break;
 
 
-      case KEY_F3:
-        mSerial.println(F("AT+BleHidMouseButton=L,click"));
-        break;
-      case KEY_F4:
-        mSerial.println(F("AT+BleHidMouseButton=R,click"));
-        break;
       case KEY_F5:
-        mSerial.println(F("AT+BleHidMouseMove=0,-20"));
+        mSerial.println(F("AT+BleKeyboardCode=02-00-52-00-00"));
+        mSerial.println(F("AT+BleKeyboardCode=00-00"));
         break;
       case KEY_F7:
-        mSerial.println(F("AT+BleHidMouseMove=0,20"));
+        mSerial.println(F("AT+BleKeyboardCode=02-00-51-00-00"));
+        mSerial.println(F("AT+BleKeyboardCode=00-00"));
         break;
+
       case KEY_F6:
-        mSerial.println(F("AT+BleHidMouseMove=-20,0"));
+        mSerial.println(F("AT+BleKeyboardCode=00-00-4B-00-00"));
+        mSerial.println(F("AT+BleKeyboardCode=00-00"));
         break;
       case KEY_F8:
-        mSerial.println(F("AT+BleHidMouseMove=20,0"));
+        mSerial.println(F("AT+BleKeyboardCode=00-00-4E-00-00"));
+        mSerial.println(F("AT+BleKeyboardCode=00-00"));
         break;
       default:
         ;
