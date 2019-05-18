@@ -82,7 +82,6 @@ byte colPins[NUM_COLS] = { 2,  3,  4,  5,  6,  7,  8,  9};
 #define COMMO_COL 5
 #define COMMO_ROW 0
 bool commo = false;
-
 // how many times does a key need to register as pressed?
 #define DEBOUNCE_VALUE 80
 #define REPEAT_DELAY 260
@@ -94,9 +93,6 @@ bool commo = false;
 // normaly you do not need Softserial in 0 and 1 !! these are still hardware serial!
 
 SoftwareSerial mSerial(0, 1); // RX, TX
-
-
-
 
 
 
@@ -170,6 +166,7 @@ void setup() {
     delay(600);
   }
 }
+
 
 void loop() {
   bool keyPressed = false;
@@ -255,6 +252,7 @@ void loop() {
   digitalWrite(rowPins[COMMO_ROW],  LOW);
 }
 
+
 // Send the keypress
 void pressKey(byte r, byte c, bool shifted) {
   byte key = shifted ? keyMapShifted[r][c] : keyMap[r][c];
@@ -263,23 +261,31 @@ void pressKey(byte r, byte c, bool shifted) {
   if (commo) {
     switch (key) {
       case KEY_SPACE:
-        mSerial.println(F("AT+BleHidMouseButton=L,click"));
+        mSerial.println(F("AT+BleHidMouseButton=R,click"));
         break;
       case SHIFT_COMMODORE:
-        mSerial.println(F("AT+BleHidMouseButton=R,click"));
+        mSerial.println(F("AT+BleHidMouseButton=L,click"));
         break;
         
       case KEY_UP_ARROW:
-        mSerial.println(F("AT+BleHidMouseMove=0,-20"));
+        while (digitalRead(colPins[c]) == LOW) {
+          mSerial.println(F("AT+BleHidMouseMove=0,-10"));
+        }
         break;
       case KEY_DOWN_ARROW:
-        mSerial.println(F("AT+BleHidMouseMove=0,20"));
+        while (digitalRead(colPins[c]) == LOW) {
+          mSerial.println(F("AT+BleHidMouseMove=0,10"));
+        }
         break;
       case KEY_LEFT_ARROW:
-        mSerial.println(F("AT+BleHidMouseMove=-20,0"));
+        while (digitalRead(colPins[c]) == LOW) {
+          mSerial.println(F("AT+BleHidMouseMove=-10,0"));
+        }
         break;
       case KEY_RIGHT_ARROW:
-        mSerial.println(F("AT+BleHidMouseMove=20,0"));
+        while (digitalRead(colPins[c]) == LOW) {
+          mSerial.println(F("AT+BleHidMouseMove=10,0"));
+        }
         break;
       default:
         ;
@@ -288,38 +294,47 @@ void pressKey(byte r, byte c, bool shifted) {
       case '0':
         mSerial.println(F("AT+BleKeyboardCode=01-00-27-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
+
         break;
       case 'a':
         mSerial.println(F("AT+BleKeyboardCode=01-00-04-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
+
         break;
       case 'c':
         mSerial.println(F("AT+BleKeyboardCode=01-00-06-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
+
         break;
       case 'f':
         mSerial.println(F("AT+BleKeyboardCode=01-00-09-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
+
         break;
       case 'g':
         mSerial.println(F("AT+BleKeyboardCode=01-00-0A-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
+
         break;
       case 'l':
         mSerial.println(F("AT+BleKeyboardCode=01-00-0F-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
+
         break;
       case 'r':
         mSerial.println(F("AT+BleKeyboardCode=01-00-15-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
+
         break;
       case 's':
         mSerial.println(F("AT+BleKeyboardCode=01-00-16-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
+
         break;
       case 'v':
         mSerial.println(F("AT+BleKeyboardCode=01-00-19-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
+
         break;
       case 'y':
         mSerial.println(F("AT+BleKeyboardCode=01-00-1C-00-00"));
@@ -328,39 +343,48 @@ void pressKey(byte r, byte c, bool shifted) {
       case 'x':
         mSerial.println(F("AT+BleKeyboardCode=01-00-1B-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
+
         break;
       case 'z':
         mSerial.println(F("AT+BleKeyboardCode=01-00-1D-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
+
         break;
 
       case 'A':
         mSerial.println(F("AT+BleKeyboardCode=03-00-04-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
+
         break;
       case 'C':
         mSerial.println(F("AT+BleKeyboardCode=03-00-06-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
+
         break;
       case 'F':
         mSerial.println(F("AT+BleKeyboardCode=03-00-09-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
+
         break;
       case 'G':
         mSerial.println(F("AT+BleKeyboardCode=03-00-0A-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
+
         break;
       case 'L':
         mSerial.println(F("AT+BleKeyboardCode=03-00-0F-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
+
         break;
       case 'R':
         mSerial.println(F("AT+BleKeyboardCode=03-00-15-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
+
         break;
       case 'S':
         mSerial.println(F("AT+BleKeyboardCode=03-00-16-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
+
         break;
       case 'V':
         mSerial.println(F("AT+BleKeyboardCode=03-00-19-00-00"));
@@ -369,23 +393,28 @@ void pressKey(byte r, byte c, bool shifted) {
       case 'Y':
         mSerial.println(F("AT+BleKeyboardCode=03-00-1C-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
+
         break;
       case 'X':
         mSerial.println(F("AT+BleKeyboardCode=03-00-1B-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
+
         break;
       case 'Z':
         mSerial.println(F("AT+BleKeyboardCode=03-00-1D-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
+
         break;
               
       case '+':
         mSerial.println(F("AT+BleKeyboardCode=01-00-2E-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
+
         break;
       case '-':
         mSerial.println(F("AT+BleKeyboardCode=01-00-2D-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
+        
         break;
       default:
         ;
@@ -417,81 +446,100 @@ void pressKey(byte r, byte c, bool shifted) {
     } else {
       mSerial.print(F("AT+BleKeyboard="));
       mSerial.println((char)key);
-    }    
+    }
+ 
   } else {
     switch (key) {
       case KEY_SPACE:
         mSerial.println(F("AT+BleKeyboardCode=00-00-2C-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
+
         break;
       case KEY_LEFT_ARROW:
         mSerial.println(F("AT+BleKeyboardCode=00-00-50-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
+
         break;
       case KEY_RIGHT_ARROW:
         mSerial.println(F("AT+BleKeyboardCode=00-00-4F-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
+
         break;
       case KEY_UP_ARROW:
         mSerial.println(F("AT+BleKeyboardCode=00-00-52-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
+
         break;
       case KEY_DOWN_ARROW:
         mSerial.println(F("AT+BleKeyboardCode=00-00-51-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
+
         break;
 
 
       case KEY_RETURN:
         mSerial.println(F("AT+BleKeyboardCode=00-00-28-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
+
         break;
       case KEY_STOP:
         mSerial.println(F("AT+BleKeyboardCode=00-00-29-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
+
         break;
       case KEY_RUN:
         mSerial.println(F("AT+BleKeyboardCode=00-00-44-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
+
         break;
       case KEY_DELETE:
         mSerial.println(F("AT+BleKeyboardCode=00-00-2A-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
+
         break;
       case KEY_CTRL:
         mSerial.println(F("AT+BleKeyboardCode=00-00-2B-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
+
         break;
       case KEY_SHIFT_CTRL:
         mSerial.println(F("AT+BleKeyboardCode=02-00-2B-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
+
         break;
       case KEY_HOME:
         mSerial.println(F("AT+BleKeyboardCode=00-00-4A-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
+
         break;
       case KEY_END:
         mSerial.println(F("AT+BleKeyboardCode=00-00-4D-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
+
         break;
       case KEY_BACKSPACE: // delete forward
         mSerial.println(F("AT+BleKeyboardCode=00-00-4C-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
+
         break;
 
       case SHIFT_PLUS:
         mSerial.println(F("AT+BleHidControlKey=VOLUME+"));
+
         break;
       case SHIFT_MINUS:
         mSerial.println(F("AT+BleHidControlKey=VOLUME-"));
+
         break;
 
 
       case SHIFT_ARROWLEFT:
         mSerial.println(F("AT+BleHidControlKey=BRIGHTNESS-"));
+
         break;
       case SHIFT_ARROWUP:
         mSerial.println(F("AT+BleHidControlKey=BRIGHTNESS+"));
+
         break;
 
 
@@ -502,26 +550,31 @@ void pressKey(byte r, byte c, bool shifted) {
 
       case KEY_F3:
         mSerial.println(F("AT+BleKeyboardCode=02-00-4F-00-00"));
-        mSerial.println(F("AT+BleKeyboardCode=00-00"));  
+        mSerial.println(F("AT+BleKeyboardCode=00-00")); 
+ 
         break;
 
 
       case KEY_F5:
         mSerial.println(F("AT+BleKeyboardCode=02-00-52-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
+
         break;
       case KEY_F7:
         mSerial.println(F("AT+BleKeyboardCode=02-00-51-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
+
         break;
 
       case KEY_F6:
         mSerial.println(F("AT+BleKeyboardCode=00-00-4B-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
+
         break;
       case KEY_F8:
         mSerial.println(F("AT+BleKeyboardCode=00-00-4E-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00"));
+
         break;
       default:
         ;

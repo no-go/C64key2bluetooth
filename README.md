@@ -93,9 +93,9 @@ Without shift: cursor down and cursor right.
 
 Additionaly I add cursor left to the `<-` key and cursor up to the `up arrow` key.
 
-With Commodore Key pressed: Space is left-mouse-click and cursor keys are to move.
+With Commodore Key pressed: left shift is left-mouse-click and cursor keys are to move.
 
-Commodore+SHIFT is a right mouse click.
+Commodore+SPACE is a right mouse click.
 
 ### Display brightness
 
@@ -131,7 +131,7 @@ Thats all folks! Some other chars are still lost.
 
 ## A4 A5 i2c
 
-Unused! you may implement a mouse via MPU6050 gyroscope or something like this.
+Unused! you may implement a mouse via MPU6050 gyroscope, poti or something like this.
 
 # Wireing C64 Keyboard Plug
 
