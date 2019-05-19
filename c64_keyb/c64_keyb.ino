@@ -19,9 +19,9 @@
 #define KEY_RIGHT_ARROW   243 //
 
 #define KEY_F1            242 // mark left
-#define KEY_F2            241 
+#define KEY_F2            241 // F12
 #define KEY_F3            240 // mark right
-#define KEY_F4            239 
+#define KEY_F4            239 // ALT + F4
 #define KEY_F5            238 // mark up
 #define KEY_F6            237 // -page up
 #define KEY_F7            236 // mark down
@@ -551,7 +551,17 @@ void pressKey(byte r, byte c, bool shifted) {
       case KEY_F3:
         mSerial.println(F("AT+BleKeyboardCode=02-00-4F-00-00"));
         mSerial.println(F("AT+BleKeyboardCode=00-00")); 
- 
+        break;
+
+
+      case KEY_F2: // F12
+        mSerial.println(F("AT+BleKeyboardCode=00-00-45-00-00"));
+        mSerial.println(F("AT+BleKeyboardCode=00-00"));
+        break;
+
+      case KEY_F4: // ALT+F4
+        mSerial.println(F("AT+BleKeyboardCode=04-00-3D-00-00"));
+        mSerial.println(F("AT+BleKeyboardCode=00-00"));
         break;
 
 
