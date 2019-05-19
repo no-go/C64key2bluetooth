@@ -45,24 +45,24 @@
 #define KEY_RESTORE       A7 // for \ and |
 
 byte keyMap[NUM_ROWS][NUM_COLS] = {
-{'1',       KEY_LEFT_ARROW, KEY_CTRL,        KEY_STOP,      KEY_SPACE,       KEY_COMMODORE, 'q',          '2'},
+{'1',       '`',            KEY_CTRL,        KEY_STOP,      KEY_SPACE,       KEY_COMMODORE, 'q',          '2'},
 {'3',       'w',            'a',             KEY_SHIFT,     'z',             's',           'e',          '4'},
 {'5',       'r',            'd',             'x',           'c',             'f',           't',          '6'},
 {'7',       'y',            'g',             'v',           'b',             'h',           'u',          '8'},
 {'9',       'i',            'j',             'n',           'm',             'k',           'o',          '0'},
 {'+',       'p',            'l',             ',',           '.',             ':',           '@',          '-'},
-{'`',       '*',            ';',             '/',            KEY_SHIFT_RIGHT, '=',          KEY_UP_ARROW, KEY_HOME},
+{KEY_LEFT_ARROW,            '*',            ';',             '/',            KEY_SHIFT_RIGHT, '=',          KEY_UP_ARROW, KEY_HOME},
 {KEY_DELETE, KEY_RETURN,    KEY_RIGHT_ARROW, KEY_DOWN_ARROW, KEY_F1,          KEY_F3,       KEY_F5      , KEY_F7}
 };
 
 byte keyMapShifted[NUM_ROWS][NUM_COLS] = {
-{'!'           ,SHIFT_ARROWLEFT ,KEY_SHIFT_CTRL ,KEY_RUN      ,KEY_SPACE       ,SHIFT_COMMODORE ,'Q'           ,34},
-{'#'           ,'W'             ,'A'            ,KEY_SHIFT    ,'Z'             ,'S'             ,'E'           ,'$'},
-{'%'           ,'R'             ,'D'            ,'X'          ,'C'             ,'F'             ,'T'           ,'&'},
-{'\''          ,'Y'             ,'G'            ,'V'          ,'B'             ,'H'             ,'U'           ,'('},
-{')'           ,'I'             ,'J'            ,'N'          ,'M'             ,'K'             ,'O'           ,'^'},
-{SHIFT_PLUS    ,'P'             ,'L'            ,'<'          ,'>'             ,'['             ,'{'           ,SHIFT_MINUS},
-{'~'           ,'}'             ,']'            ,'?'          ,KEY_SHIFT_RIGHT ,'_'             ,SHIFT_ARROWUP ,KEY_END},
+{'!'             ,'~'             ,KEY_SHIFT_CTRL ,KEY_RUN      ,KEY_SPACE       ,SHIFT_COMMODORE ,'Q'           ,34},
+{'#'             ,'W'             ,'A'            ,KEY_SHIFT    ,'Z'             ,'S'             ,'E'           ,'$'},
+{'%'             ,'R'             ,'D'            ,'X'          ,'C'             ,'F'             ,'T'           ,'&'},
+{'\''            ,'Y'             ,'G'            ,'V'          ,'B'             ,'H'             ,'U'           ,'('},
+{')'             ,'I'             ,'J'            ,'N'          ,'M'             ,'K'             ,'O'           ,'^'},
+{SHIFT_PLUS      ,'P'             ,'L'            ,'<'          ,'>'             ,'['             ,'{'           ,SHIFT_MINUS},
+{SHIFT_ARROWLEFT ,'}'             ,']'            ,'?'          ,KEY_SHIFT_RIGHT ,'_'             ,SHIFT_ARROWUP ,KEY_END},
 {KEY_BACKSPACE ,KEY_RETURN      ,KEY_LEFT_ARROW ,KEY_UP_ARROW ,KEY_F2          ,KEY_F4          ,KEY_F6        ,KEY_F8}
 };
   
